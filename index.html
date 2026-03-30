@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>03月 重點進口車 副所長獎勵報表</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0f172a;--card:rgba(30,41,59,0.75);--border:rgba(148,163,184,0.1);--text:#e2e8f0;--muted:#64748b;--accent:#3b82f6;--green:#10b981;--yellow:#f59e0b;--red:#ef4444;--purple:#8b5cf6}
+body{font-family:'Noto Sans TC','Helvetica Neue',sans-serif;background:linear-gradient(135deg,var(--bg) 0%,#1e293b 50%,var(--bg) 100%);color:var(--text);min-height:100vh;-webkit-tap-highlight-color:transparent}
+.bg-dots{position:fixed;inset:0;opacity:.03;background-image:radial-gradient(circle at 1px 1px,#94a3b8 1px,transparent 0);background-size:32px 32px;pointer-events:none}
+header{background:linear-gradient(90deg,rgba(59,130,246,.12),rgba(139,92,246,.08),rgba(59,130,246,.12));border-bottom:1px solid rgba(59,130,246,.15);padding:16px 20px;backdrop-filter:blur(20px);position:sticky;top:0;z-index:100}
+.header-inner{max-width:1000px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.logo{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#3b82f6,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 4px 14px rgba(59,130,246,.35);flex-shrink:0}
+.header-text h1{font-size:17px;font-weight:700;letter-spacing:-.3px}
+.header-text p{font-size:11px;color:var(--muted);margin-top:1px}
+.container{max-width:1000px;margin:0 auto;padding:16px 16px 40px}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:18px}
+@media(min-width:640px){.stats{grid-template-columns:repeat(4,1fr)}}
+.stat{background:var(--card);border-radius:12px;padding:14px 16px;border:1px solid var(--border)}
+.stat-label{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.stat-val{font-size:22px;font-weight:800}
+.stat-sub{font-size:10px;color:var(--muted);margin-top:3px}
+.cars{background:var(--card);border-radius:12px;padding:14px 16px;border:1px solid var(--border);margin-bottom:18px;display:flex;gap:8px;flex-wrap:wrap}
+.car-tag{padding:6px 12px;border-radius:8px;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);font-size:12px}
+.car-tag b{color:var(--accent);margin-left:6px}
+.tabs{display:flex;gap:4px;margin-bottom:16px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tab{padding:10px 20px;border-radius:10px;border:none;background:rgba(148,163,184,.08);color:var(--muted);font-size:14px;cursor:pointer;font-family:inherit;white-space:nowrap;transition:all .2s}
+.tab.active{background:rgba(59,130,246,.25);color:#93c5fd;font-weight:700}
+.branch{background:var(--card);border-radius:14px;border:1px solid var(--border);margin-bottom:16px;overflow:hidden}
+.branch-head{padding:12px 16px;background:rgba(15,23,42,.5);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.branch-info{display:flex;align-items:center;gap:10px}
+.grade{display:inline-block;padding:2px 8px;border-radius:5px;font-size:11px;font-weight:700;background:rgba(148,163,184,.1);color:var(--muted);border:1px solid var(--border)}
+.grade.S{background:rgba(250,204,21,.15);color:#fbbf24;border-color:rgba(250,204,21,.3)}
+.branch-name{font-size:15px;font-weight:700}
+.branch-code{font-size:12px;color:var(--muted);margin-left:4px}
+.branch-chief{font-size:11px;color:var(--muted)}
+.branch-stats{font-size:12px;display:flex;gap:12px;flex-wrap:wrap}
+.branch-stats span{white-space:nowrap}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;min-width:700px}
+th{padding:10px 10px;font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);text-align:left;white-space:nowrap}
+th.r{text-align:right}
+td{padding:9px 10px;font-size:13px;border-bottom:1px solid rgba(148,163,184,.05)}
+td.r{text-align:right}
+td.mono{font-family:monospace;color:#93c5fd}
+tr.row:active{background:rgba(59,130,246,.08)}
+.bar-wrap{display:flex;align-items:center;gap:6px;min-width:130px}
+.bar-bg{flex:1;height:8px;border-radius:4px;background:rgba(148,163,184,.12);overflow:hidden}
+.bar-fill{height:100%;border-radius:4px;transition:width .5s ease}
+.bar-fill.green{background:linear-gradient(90deg,var(--green),#34d399)}
+.bar-fill.yellow{background:linear-gradient(90deg,var(--yellow),#fbbf24)}
+.bar-fill.red{background:linear-gradient(90deg,var(--red),#f87171)}
+.pct{font-size:12px;font-weight:700;min-width:40px;text-align:right}
+.bonus{font-weight:700;font-size:13px}
+.bonus.has{color:var(--green)}
+.total-bonus{font-weight:800;font-size:14px}
+.total-bonus.has{color:var(--yellow)}
+.actual{font-size:17px;font-weight:800}
+.actual.t4{color:var(--green)}
+.actual.t3{color:var(--yellow)}
+.actual.t0{color:var(--muted)}
+.detail-hint{padding:6px 16px;font-size:10px;color:var(--muted);background:rgba(15,23,42,.3)}
+/* Modal */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;display:flex;align-items:flex-end;justify-content:center;padding:0}
+@media(min-width:640px){.overlay{align-items:center;padding:20px}}
+.modal{background:#1e293b;border-radius:20px 20px 0 0;padding:20px;width:100%;max-height:80vh;overflow-y:auto;border:1px solid var(--border);animation:slideUp .25s ease}
+@media(min-width:640px){.modal{border-radius:16px;max-width:650px}}
+@keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.modal-head h3{font-size:16px}
+.close-btn{background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;padding:4px 8px}
+.modal table{min-width:500px}
+.modal td,.modal th{padding:8px}
+.double-tag{color:var(--yellow);font-size:10px;font-weight:700}
+.rules{background:rgba(139,92,246,.06);border-radius:12px;padding:16px 18px;border:1px solid rgba(139,92,246,.15);margin-top:8px}
+.rules h3{font-size:13px;color:#a78bfa;margin-bottom:8px}
+.rules p{font-size:12px;color:var(--muted);line-height:1.8;margin:0}
+.update-info{text-align:center;padding:20px;font-size:11px;color:var(--muted)}
+::-webkit-scrollbar{height:5px;width:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(148,163,184,.2);border-radius:3px}
+</style>
+</head>
+<body>
+<div class="bg-dots"></div>
+<header>
+<div class="header-inner">
+<div class="logo">🏆</div>
+<div class="header-text">
+<h1>03月 重點進口車 副所長獎勵</h1>
+<p>獎勵期間 03/01-03/31 ｜ 販賣日統計至 03/15</p>
+</div>
+</div>
+</header>
+<div class="container" id="app"></div>
+
+<script>
+// ===== 訂單資料（已從 Excel 擷取）=====
+const ORDERS=[{"n":"C021503007901","c":"CROWN HV","p":2100,"s":"","o":"2026-03-15","sc":"C022","y":"2026","u":2,"r":"A8077江心恩","cu":"李昌榮"},{"n":"C221503000801","c":"GR YARIS","p":1990,"s":"2026-03-02","o":"2026-03-01","sc":"C221","y":"2026","u":1,"r":"99179許澤承","cu":"王勝興"},{"n":"C071503003301","c":"GR YARIS","p":1990,"s":"2026-03-09","o":"2026-03-07","sc":"C071","y":"2026","u":1,"r":"B4080羅建宗","cu":"蔡森杰"},{"n":"C091503000401","c":"CROWN HV","p":1570,"s":"2026-03-02","o":"2026-03-01","sc":"C092","y":"2026","u":2,"r":"83874謝淑芬","cu":"九榮五金有限公司"},{"n":"C091503000601","c":"CROWN HV","p":1570,"s":"2026-03-02","o":"2026-03-01","sc":"C092","y":"2026","u":2,"r":"B0053黃君皓","cu":"鍾兆祥"},{"n":"C141503000601","c":"CROWN HV","p":1570,"s":"2026-03-03","o":"2026-03-01","sc":"C142","y":"2026","u":2,"r":"85247胡毓奎","cu":"蕭博文"},{"n":"C171503001401","c":"CROWN HV","p":2100,"s":"2026-03-03","o":"2026-03-02","sc":"C171","y":"2026","u":2,"r":"89335呂學正","cu":"卓麗隨"},{"n":"C191503001201","c":"CROWN HV","p":1570,"s":"2026-03-03","o":"2026-03-01","sc":"C192","y":"2026","u":2,"r":"B4301陳俞廷","cu":"湯子君"},{"n":"C031503008201","c":"CROWN HV","p":1570,"s":"2026-03-09","o":"2026-03-08","sc":"C033","y":"2026","u":2,"r":"94409鄒曉燕","cu":"鄒宜芸"},{"n":"C151503004301","c":"RAV4 HV","p":1330,"s":"","o":"2026-03-15","sc":"C151","y":"2026","u":1,"r":"A2196謝麗美","cu":"黃日隆"},{"n":"C021503003001","c":"RAV4 HV","p":1330,"s":"2026-03-05","o":"2026-03-05","sc":"C021","y":"2026","u":1,"r":"B0125謝宇智","cu":"呂易鴻"},{"n":"C031503004401","c":"RAV4 HV","p":1330,"s":"2026-03-03","o":"2026-03-02","sc":"C033","y":"2026","u":1,"r":"97115傅羽榛","cu":"李讚瑞"},{"n":"C031503012401","c":"RAV4 HV","p":1330,"s":"","o":"2026-03-14","sc":"C034","y":"2026","u":1,"r":"B0248商海森","cu":"李嘉琪"},{"n":"C061503007501","c":"RAV4 HV","p":1330,"s":"","o":"2026-03-15","sc":"C061","y":"2026","u":1,"r":"B1243彭昱鈞","cu":"錦昶有限公司"},{"n":"C061503007601","c":"RAV4 HV","p":1330,"s":"","o":"2026-03-15","sc":"C061","y":"2026","u":1,"r":"B1243彭昱鈞","cu":"錦昶有限公司"},{"n":"C061503003201","c":"RAV4 HV","p":1330,"s":"2026-03-05","o":"2026-03-05","sc":"C061","y":"2026","u":1,"r":"B2066鍾佳芳","cu":"陳虹伶"},{"n":"C081503001301","c":"GR YARIS","p":1990,"s":"2026-03-03","o":"2026-03-02","sc":"C081","y":"2026","u":1,"r":"A2080陳翊綾","cu":"陳若熙"},{"n":"C111503002901","c":"RAV4 HV","p":1330,"s":"2026-03-12","o":"2026-03-11","sc":"C112","y":"2026","u":1,"r":"94203嚴偉仁","cu":"楊文邦"},{"n":"C171503002001","c":"RAV4 HV","p":1330,"s":"2026-03-04","o":"2026-03-03","sc":"C172","y":"2026","u":1,"r":"B3386王坤星","cu":"江文賓"},{"n":"C221503004501","c":"RAV4 HV","p":1330,"s":"","o":"2026-03-14","sc":"C221","y":"2026","u":1,"r":"B2363駱慶樺","cu":"胡汶茹"},{"n":"C221503003001","c":"RAV4 HV","p":1330,"s":"2026-03-09","o":"2026-03-08","sc":"C221","y":"2026","u":1,"r":"B3349張祺達","cu":"黃美雯"},{"n":"C011503008101","c":"SIENNA HV","p":2380,"s":"","o":"2026-03-15","sc":"C012","y":"2025","u":2,"r":"B0217施羽璦","cu":"劉昌正"},{"n":"C091503007901","c":"RAV4 HV","p":1330,"s":"","o":"2026-03-12","sc":"C093","y":"2026","u":1,"r":"A8250李成勛","cu":"廖婉茹"},{"n":"C121503001901","c":"RAV4 HV","p":1330,"s":"2026-03-10","o":"2026-03-07","sc":"C122","y":"2026","u":1,"r":"B2167簡瑞文","cu":"簡淑苹"},{"n":"C181503002201","c":"RAV4 HV","p":1330,"s":"2026-03-06","o":"2026-03-06","sc":"C182","y":"2026","u":1,"r":"A9072劉文萍","cu":"趙月琴"},{"n":"C191503000301","c":"SIENNA HV","p":2380,"s":"2026-03-03","o":"2026-03-01","sc":"C192","y":"2025","u":2,"r":"86178孫念恒","cu":"順昱有限公司"},{"n":"C191503004101","c":"RAV4 HV","p":1330,"s":"2026-03-09","o":"2026-03-07","sc":"C194","y":"2026","u":1,"r":"94219陳昭慧","cu":"彭秀梅"},{"n":"C221503002601","c":"RAV4 HV","p":1330,"s":"2026-03-09","o":"2026-03-07","sc":"C221","y":"2026","u":1,"r":"A9168陳彥霖","cu":"吳祐誠"},{"n":"C221503000701","c":"RAV4 HV","p":1330,"s":"2026-03-02","o":"2026-03-01","sc":"C221","y":"2026","u":1,"r":"B2363駱慶樺","cu":"褚泓宇"},{"n":"C081503004901","c":"SIENNA HV","p":2380,"s":"","o":"2026-03-15","sc":"C081","y":"2025","u":2,"r":"A1128陳俊宇","cu":"李國誠"},{"n":"C071503003001","c":"bZ4X","p":1280,"s":"2026-03-09","o":"2026-03-07","sc":"C073","y":"2026","u":1,"r":"B3354張語甯","cu":"夏德林"},{"n":"C111503003901","c":"RAV4 HV","p":1330,"s":"","o":"2026-03-15","sc":"C111","y":"2026","u":1,"r":"B5005張秋美","cu":"張沐豪"},{"n":"C141503003801","c":"RAV4 HV","p":1330,"s":"","o":"2026-03-15","sc":"C141","y":"2026","u":1,"r":"B4142林家如","cu":"邱奕勲"},{"n":"C191503009301","c":"SIENNA HV","p":2380,"s":"","o":"2026-03-15","sc":"C193","y":"2025","u":2,"r":"A2227蕭國鎮","cu":"黃柏崴"},{"n":"C231503004001","c":"RAV4 HV","p":1330,"s":"","o":"2026-03-15","sc":"C231","y":"2026","u":1,"r":"B1003蕭煜群","cu":"陳宗誼"},{"n":"C171503002201","c":"GR YARIS","p":1990,"s":"","o":"2026-03-04","sc":"C172","y":"2026","u":1,"r":"B3219温亦慶","cu":"日盛全台通小客車租賃股份有限公司"},{"n":"C021503007601","c":"bZ4X","p":1280,"s":"","o":"2026-03-14","sc":"C023","y":"2026","u":1,"r":"A3055机雅帆","cu":"眭湘苓"},{"n":"C031503009301","c":"bZ4X","p":1280,"s":"2026-03-11","o":"2026-03-11","sc":"C032","y":"2026","u":1,"r":"87496謝依鈴","cu":"劉建新"},{"n":"C031503001201","c":"bZ4X","p":1280,"s":"2026-03-02","o":"2026-03-01","sc":"C032","y":"2026","u":1,"r":"A8230高仟柔","cu":"李中丞"},{"n":"C071503005001","c":"bZ4X","p":1280,"s":"2026-03-09","o":"2026-03-09","sc":"C073","y":"2026","u":1,"r":"91278陳雅婷","cu":"萬安租車企業有限公司"},{"n":"C091503006901","c":"bZ4X","p":1280,"s":"","o":"2026-03-10","sc":"C091","y":"2026","u":1,"r":"A0036張元愷","cu":"賴家強"},{"n":"C091503006701","c":"bZ4X","p":1280,"s":"","o":"2026-03-09","sc":"C091","y":"2026","u":1,"r":"B2350傅士豪","cu":"黃源清"},{"n":"C121503003101","c":"bZ4X","p":1280,"s":"2026-03-13","o":"2026-03-12","sc":"C122","y":"2026","u":1,"r":"B1202許妍安","cu":"聯邦國際租賃股份有限公司桃園分公司"},{"n":"C121503000101","c":"bZ4X","p":1280,"s":"2026-03-02","o":"2026-03-01","sc":"C122","y":"2026","u":1,"r":"B2167簡瑞文","cu":"房素筠"},{"n":"C191503005601","c":"bZ4X","p":1280,"s":"2026-03-11","o":"2026-03-08","sc":"C193","y":"2026","u":1,"r":"A0100陳冠宇","cu":"鄭辰旋"},{"n":"C021503004401","c":"CROWN HV","p":1570,"s":"2026-03-09","o":"2026-03-08","sc":"C021","y":"2026","u":2,"r":"90083蔡淑敏","cu":"張麗珠"},{"n":"C021503001801","c":"RAV4 HV","p":1330,"s":"2026-03-03","o":"2026-03-02","sc":"C023","y":"2026","u":1,"r":"A3055机雅帆","cu":"林金玉"},{"n":"C021503005001","c":"CROWN HV","p":1570,"s":"2026-03-09","o":"2026-03-08","sc":"C023","y":"2026","u":2,"r":"B4096吳偉傑","cu":"吳文棋"},{"n":"C151503004201","c":"CROWN HV","p":1570,"s":"","o":"2026-03-14","sc":"C152","y":"2026","u":2,"r":"B1063張文綺","cu":"朱普明"},{"n":"C011503001401","c":"bZ4X","p":1280,"s":"2026-03-09","o":"2026-03-02","sc":"C012","y":"2026","u":1,"r":"A6106陳柏彥","cu":"莊昔蕓"},{"n":"C031503013001","c":"bZ4X","p":1280,"s":"","o":"2026-03-15","sc":"C032","y":"2026","u":1,"r":"87496謝依鈴","cu":"張永昇"},{"n":"C031503007701","c":"bZ4X","p":1280,"s":"2026-03-10","o":"2026-03-08","sc":"C033","y":"2026","u":1,"r":"B3063唐小芳","cu":"陳祖龍"},{"n":"C061503007901","c":"bZ4X","p":1280,"s":"","o":"2026-03-15","sc":"C062","y":"2026","u":1,"r":"B3074潘俊顯","cu":"黃明輝"},{"n":"C071503005501","c":"bZ4X","p":1280,"s":"2026-03-10","o":"2026-03-10","sc":"C072","y":"2026","u":1,"r":"A9240邱士桓","cu":"余興相"},{"n":"C111503003501","c":"bZ4X","p":1280,"s":"","o":"2026-03-14","sc":"C111","y":"2026","u":1,"r":"A8101黃建榮","cu":"張啟瑩"},{"n":"C121503000401","c":"bZ4X","p":1280,"s":"","o":"2026-03-01","sc":"C121","y":"2026","u":1,"r":"A4088林欣怡","cu":"邱詩宜"},{"n":"C141503003401","c":"bZ4X","p":1280,"s":"","o":"2026-03-14","sc":"C142","y":"2026","u":1,"r":"B1300林鈺展","cu":"馮秀逸"},{"n":"C171503000201","c":"bZ4X","p":1280,"s":"2026-03-09","o":"2026-03-01","sc":"C171","y":"2026","u":1,"r":"89030莊謙葦","cu":"謝冬萍"},{"n":"C171503003101","c":"bZ4X","p":1280,"s":"2026-03-09","o":"2026-03-07","sc":"C171","y":"2026","u":1,"r":"89030莊謙葦","cu":"桃新汽車專業美容股份有限公司"},{"n":"C181503004001","c":"bZ4X","p":1280,"s":"","o":"2026-03-14","sc":"C181","y":"2026","u":1,"r":"A6006顏嘉緯","cu":"張敏子"},{"n":"C221503003301","c":"bZ4X","p":1280,"s":"","o":"2026-03-10","sc":"C221","y":"2026","u":1,"r":"B4038許馨予","cu":"和運租車股份有限公司"},{"n":"C031503000601","c":"RAV4 HV","p":1330,"s":"2026-03-05","o":"2026-03-01","sc":"C032","y":"2026","u":1,"r":"B3036陳采瑄","cu":"劉俊佑"},{"n":"C031503005701","c":"bZ4X","p":1280,"s":"2026-03-10","o":"2026-03-06","sc":"C033","y":"2026","u":1,"r":"B3063唐小芳","cu":"林阿成"},{"n":"C121503000201","c":"RAV4 HV","p":1330,"s":"2026-03-05","o":"2026-03-01","sc":"C121","y":"2026","u":1,"r":"A5018蔡曜鴻","cu":"劉彥辰"},{"n":"C121503003801","c":"bZ4X","p":1280,"s":"","o":"2026-03-15","sc":"C122","y":"2026","u":1,"r":"B2167簡瑞文","cu":"毛育菁"},{"n":"C151503000201","c":"bZ4X","p":1280,"s":"2026-03-09","o":"2026-03-01","sc":"C152","y":"2026","u":1,"r":"A4189范純祐","cu":"吳冠廷"},{"n":"C181503001301","c":"bZ4X","p":1280,"s":"2026-03-06","o":"2026-03-04","sc":"C182","y":"2026","u":1,"r":"A8029彭子芸","cu":"陳慧玲"},{"n":"C191503000901","c":"bZ4X","p":1280,"s":"2026-03-05","o":"2026-03-01","sc":"C193","y":"2026","u":1,"r":"B4077謝丞璘","cu":"周祐康"},{"n":"C011503001501","c":"RAV4 HV","p":1330,"s":"2026-03-09","o":"2026-03-02","sc":"C012","y":"2026","u":1,"r":"A6106陳柏彥","cu":"陳日光"},{"n":"C081503001201","c":"bZ4X","p":1280,"s":"2026-03-06","o":"2026-03-02","sc":"C082","y":"2026","u":1,"r":"B3037陳心渝","cu":"管偉兆"},{"n":"C111503000901","c":"bZ4X","p":1280,"s":"2026-03-12","o":"2026-03-04","sc":"C111","y":"2026","u":1,"r":"B2137謝岱弦","cu":"林佩靜"},{"n":"C191503002701","c":"SIENNA HV","p":2380,"s":"2026-03-09","o":"2026-03-05","sc":"C191","y":"2025","u":2,"r":"B0047李依純","cu":"黃佳琦"},{"n":"C191503005401","c":"bZ4X","p":1280,"s":"2026-03-11","o":"2026-03-08","sc":"C192","y":"2026","u":1,"r":"94471吳詩添","cu":"林雨欣"},{"n":"C191503004001","c":"bZ4X","p":1280,"s":"2026-03-09","o":"2026-03-07","sc":"C194","y":"2026","u":1,"r":"A7211白忠貴","cu":"周君蕙"},{"n":"C231503000801","c":"CROWN HV","p":1570,"s":"2026-03-11","o":"2026-03-03","sc":"C232","y":"2026","u":2,"r":"98017林語涵","cu":"何意儒"},{"n":"C021503003701","c":"bZ4X","p":1280,"s":"2026-03-12","o":"2026-03-07","sc":"C021","y":"2026","u":1,"r":"B4135邱紀雅","cu":"林維姿"},{"n":"C031503003001","c":"RAV4 HV","p":1330,"s":"2026-03-09","o":"2026-03-01","sc":"C033","y":"2026","u":1,"r":"94409鄒曉燕","cu":"宋增桓"},{"n":"C061503004201","c":"bZ4X","p":1280,"s":"2026-03-09","o":"2026-03-07","sc":"C061","y":"2026","u":1,"r":"A4140黃方亭","cu":"詹麗玲"},{"n":"C171503001901","c":"RAV4 HV","p":1330,"s":"2026-03-10","o":"2026-03-03","sc":"C172","y":"2026","u":1,"r":"B3386王坤星","cu":"楊秀娟"},{"n":"C191503001301","c":"RAV4 HV","p":1330,"s":"2026-03-09","o":"2026-03-02","sc":"C191","y":"2026","u":1,"r":"B1337施品慈","cu":"陳秭筠"},{"n":"C021503007501","c":"bZ4X","p":1280,"s":"","o":"2026-03-14","sc":"C021","y":"2026","u":1,"r":"90083蔡淑敏","cu":"曹福君"},{"n":"C021503005601","c":"RAV4 HV","p":1330,"s":"2026-03-11","o":"2026-03-09","sc":"C022","y":"2026","u":1,"r":"A8077江心恩","cu":"秦鄭玲"},{"n":"C031503001401","c":"RAV4 HV","p":1330,"s":"2026-03-11","o":"2026-03-01","sc":"C034","y":"2026","u":1,"r":"A8129官品榕","cu":"杜嘉德"},{"n":"C061503005901","c":"SIENNA HV","p":2380,"s":"2026-03-11","o":"2026-03-10","sc":"C062","y":"2025","u":2,"r":"B4057林博玄","cu":"黃憶文"},{"n":"C081503003101","c":"bZ4X","p":1280,"s":"","o":"2026-03-08","sc":"C081","y":"2026","u":1,"r":"B4030謝鎧鴻","cu":"吳芊卉"},{"n":"C091503005601","c":"RAV4 HV","p":1330,"s":"2026-03-12","o":"2026-03-08","sc":"C093","y":"2026","u":1,"r":"A8250李成勛","cu":"鄧忠仁"},{"n":"C121503000901","c":"RAV4 HV","p":1330,"s":"","o":"2026-03-03","sc":"C122","y":"2026","u":1,"r":"89315簡束娥","cu":"黃辟輝"},{"n":"C131503004701","c":"RAV4 HV","p":1330,"s":"2026-03-13","o":"2026-03-12","sc":"C131","y":"2026","u":1,"r":"98052宋淑滿","cu":"詹富愿"},{"n":"C151503003601","c":"RAV4 HV","p":1330,"s":"","o":"2026-03-14","sc":"C152","y":"2026","u":1,"r":"B1063張文綺","cu":"鄭復興"},{"n":"C181503003301","c":"RAV4 HV","p":1330,"s":"2026-03-12","o":"2026-03-10","sc":"C181","y":"2026","u":1,"r":"A4007黃逵安","cu":"馬鳳瑛"},{"n":"C181503004501","c":"bZ4X","p":1280,"s":"","o":"2026-03-14","sc":"C181","y":"2026","u":1,"r":"A6006顏嘉緯","cu":"侯桂芬"},{"n":"C021503002601","c":"RAV4 HV","p":1330,"s":"2026-03-13","o":"2026-03-04","sc":"C022","y":"2026","u":1,"r":"94037陳尹涵","cu":"李召揚"},{"n":"C121503003501","c":"RAV4 HV","p":1330,"s":"","o":"2026-03-15","sc":"C122","y":"2026","u":1,"r":"A9022李建輝","cu":"黃厚勝"},{"n":"C011503007301","c":"RAV4 HV","p":1330,"s":"","o":"2026-03-15","sc":"C011","y":"2026","u":1,"r":"B1327李宗霖","cu":"蔡萱儀"},{"n":"C121503004001","c":"RAV4 HV","p":1330,"s":"","o":"2026-03-15","sc":"C122","y":"2026","u":1,"r":"B1202許妍安","cu":"崔樹庭"},{"n":"C191503008201","c":"RAV4 HV","p":1330,"s":"","o":"2026-03-15","sc":"C194","y":"2026","u":1,"r":"94219陳昭慧","cu":"蘇素卿"}];
+
+// ===== 組織架構 =====
+const ORG={
+"北區":[
+{所:"桃園所",code:"C02",chief:"侯佳騏",g:"A",m:[{c:"C021",n:"歐國欽"},{c:"C022",n:"曾祥維"},{c:"C023",n:"冷崇世"}]},
+{所:"中壢所",code:"C03",chief:"葉寶",g:"S",m:[{c:"C031",n:"施坤德"},{c:"C032",n:"吳善光"},{c:"C033",n:"徐宇平"},{c:"C034",n:"林政玄"}]},
+{所:"南中壢所",code:"C09",chief:"張朝欽",g:"A",m:[{c:"C091",n:"葉秀城"},{c:"C092",n:"麥禕凱"},{c:"C093",n:"吳俊銘"}]},
+{所:"八德所",code:"C12",chief:"邱鼎壹",g:"B",m:[{c:"C121",n:"賴建樺"},{c:"C122",n:"張凱傑"}]},
+{所:"龜山所",code:"C17",chief:"曾威武",g:"B",m:[{c:"C171",n:"劉邦權"},{c:"C172",n:"祝康偉"}]},
+{所:"南桃園所",code:"C19",chief:"",g:"C",m:[{c:"C191",n:"謝獻德"}]},
+],
+"南區":[
+{所:"新竹所",code:"C01",chief:"洪佳樺",g:"A",m:[{c:"C011",n:"張維仁"},{c:"C012",n:""},{c:"C013",n:"謝孟修"},{c:"C014",n:"梅祖儀"}]},
+{所:"竹北所",code:"C07",chief:"林信志",g:"A",m:[{c:"C071",n:""},{c:"C072",n:"詹佳豪"},{c:"C073",n:"徐迪凡"}]},
+{所:"竹東所",code:"C08",chief:"李旻瑋",g:"B",m:[{c:"C081",n:"梁一中"},{c:"C082",n:"呂宗翰"}]},
+{所:"新竹東所",code:"C18",chief:"蔡炳輝",g:"B",m:[{c:"C181",n:"蘇振華"},{c:"C182",n:"黃亭力"}]},
+{所:"頭份所",code:"C06",chief:"吳名軒",g:"B",m:[{c:"C061",n:"蕭柏壕"},{c:"C062",n:"羅振鴻"}]},
+{所:"苑裡所",code:"C11",chief:"",g:"C",m:[{c:"C111",n:"張亦辰"},{c:"C112",n:"鄭偉業"}]},
+]};
+
+const T1=3,T2=4,B1=10000,B2=20000,BX=10000;
+
+// 篩選已販賣訂單
+const sold=ORDERS.filter(o=>o.s&&o.s>="2026-03-01"&&o.s<="2026-03-30");
+const pending=ORDERS.filter(o=>!o.s);
+
+// 統計
+const secCount={},secOrders={};
+sold.forEach(o=>{secCount[o.sc]=(secCount[o.sc]||0)+o.u;if(!secOrders[o.sc])secOrders[o.sc]=[];secOrders[o.sc].push(o)});
+
+// 車種統計
+const carMap={};
+sold.forEach(o=>{const c=o.c.trim();carMap[c]=(carMap[c]||0)+o.u});
+const carList=Object.entries(carMap).sort((a,b)=>b[1]-a[1]);
+
+// 計算結果
+const results={};
+for(const[region,branches]of Object.entries(ORG)){
+results[region]=branches.map(b=>{
+const mr=b.m.map(m=>{
+const act=secCount[m.c]||0;
+const r1=act/T1,r2=act/T2;
+const b1=r2>=1?0:(r1>=1?B1:0);
+const b2b=r2>=1?B2:0;
+const b2x=r2>1?BX*(act-T2):0;
+const tot=b1+b2b+b2x;
+return{...m,act,r1,r2,b1,b2:b2b+b2x,tot,orders:secOrders[m.c]||[]};
+});
+const ba=mr.reduce((s,m)=>s+m.act,0);
+return{...b,mr,ba,bt1:b.m.length*T1,bt2:b.m.length*T2,br1:ba/(b.m.length*T1),br2:ba/(b.m.length*T2)};
+});
+}
+
+const allM=Object.values(results).flat().flatMap(b=>b.mr);
+const totalUnits=sold.reduce((s,o)=>s+o.u,0);
+const a3=allM.filter(m=>m.r1>=1).length;
+const a4=allM.filter(m=>m.r2>=1).length;
+const totalB=allM.reduce((s,m)=>s+m.tot,0);
+const totalM=allM.length;
+
+let activeRegion="北區";
+let modal=null;
+
+function fmt(n){return Math.round(n*100)+"%"}
+function fmtM(n){return"$"+n.toLocaleString()}
+function barClass(p){return p>=1?"green":p>=.67?"yellow":"red"}
+
+function render(){
+const app=document.getElementById("app");
+let h="";
+
+// Stats
+h+=`<div class="stats">
+<div class="stat"><div class="stat-label">販賣實績</div><div class="stat-val" style="color:var(--accent)">${totalUnits} 台</div><div class="stat-sub">${sold.length} 筆已販賣</div></div>
+<div class="stat"><div class="stat-label">3台達成</div><div class="stat-val" style="color:${a3>0?"var(--green)":"var(--muted)"}">${a3}/${totalM}</div><div class="stat-sub">達成率 ${totalM>0?Math.round(a3/totalM*100):0}%</div></div>
+<div class="stat"><div class="stat-label">4台達成</div><div class="stat-val" style="color:${a4>0?"var(--green)":"var(--muted)"}">${a4}/${totalM}</div><div class="stat-sub">達成率 ${totalM>0?Math.round(a4/totalM*100):0}%</div></div>
+<div class="stat"><div class="stat-label">預估總獎金</div><div class="stat-val" style="color:var(--yellow)">${fmtM(totalB)}</div><div class="stat-sub">${pending.length} 筆尚未販賣</div></div>
+</div>`;
+
+// Cars
+h+=`<div class="cars">${carList.map(([c,n])=>`<div class="car-tag">${c}<b>${n}台</b></div>`).join("")}</div>`;
+
+// Tabs
+h+=`<div class="tabs">${Object.keys(ORG).map(r=>`<button class="tab${r===activeRegion?" active":""}" onclick="switchTab('${r}')">${r}</button>`).join("")}</div>`;
+
+// Branches
+const branches=results[activeRegion]||[];
+branches.forEach(b=>{
+h+=`<div class="branch">
+<div class="branch-head">
+<div class="branch-info">
+<span class="grade ${b.g}">${b.g}</span>
+<span class="branch-name">${b.所}</span><span class="branch-code">${b.code}</span>
+${b.chief?`<span class="branch-chief">所長：${b.chief}</span>`:""}
+</div>
+<div class="branch-stats">
+<span>合計 <b style="color:var(--accent)">${b.ba}</b> 台</span>
+<span>3台線 <b style="color:${b.br1>=1?"var(--green)":"var(--muted)"}">${fmt(b.br1)}</b></span>
+<span>4台線 <b style="color:${b.br2>=1?"var(--green)":"var(--muted)"}">${fmt(b.br2)}</b></span>
+</div>
+</div>
+<div class="table-wrap"><table>
+<tr><th>課別</th><th>副所長</th><th class="r">實績</th><th>3台達成率</th><th class="r">3台獎金</th><th>4台達成率</th><th class="r">4台獎金</th><th class="r">合計</th></tr>`;
+
+b.mr.forEach(m=>{
+const p1=Math.min(m.r1,1)*100,p2=Math.min(m.r2,1)*100;
+h+=`<tr class="row" onclick="showDetail('${m.c}','${m.n||m.c}')">
+<td class="mono">${m.c}</td>
+<td style="font-weight:600">${m.n||"—"}</td>
+<td class="r actual ${m.act>=T2?"t4":m.act>=T1?"t3":m.act>0?"":"t0"}">${m.act}</td>
+<td><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill ${barClass(m.r1)}" style="width:${p1}%"></div></div><span class="pct" style="color:var(--${barClass(m.r1)})">${fmt(m.r1)}</span></div></td>
+<td class="r bonus ${m.b1>0?"has":""}">${m.b1>0?fmtM(m.b1):"—"}</td>
+<td><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill ${barClass(m.r2)}" style="width:${p2}%"></div></div><span class="pct" style="color:var(--${barClass(m.r2)})">${fmt(m.r2)}</span></div></td>
+<td class="r bonus ${m.b2>0?"has":""}">${m.b2>0?fmtM(m.b2):"—"}</td>
+<td class="r total-bonus ${m.tot>0?"has":""}">${m.tot>0?fmtM(m.tot):"—"}</td>
+</tr>`;
+});
+h+=`</table></div><div class="detail-hint">💡 點擊任一列查看訂單明細</div></div>`;
+});
+
+// Rules
+h+=`<div class="rules"><h3>📌 獎金計算規則</h3>
+<p>• <b style="color:var(--text)">3台目標達成</b>：獎金 $10,000（若已達4台目標則不另計）<br>
+• <b style="color:var(--text)">4台目標達成</b>：獎金 $20,000 + 超過部分每台 $10,000<br>
+• <b style="color:var(--yellow)">1計2台</b>：準26 CROWN HV、正25 SIENNA HV 每台以2台計算<br>
+• <b style="color:var(--text)">重點車種</b>：RAV4 ADV(133萬)、bZ4X、CROWN HV、GR YARIS、SIENNA HV</p></div>`;
+
+h+=`<div class="update-info">資料更新時間：${new Date().toLocaleDateString("zh-TW")} ｜ 販賣日 03/01 - 03/30</div>`;
+
+app.innerHTML=h;
+}
+
+function switchTab(r){activeRegion=r;render()}
+
+function showDetail(code,name){
+const orders=secOrders[code]||[];
+if(!orders.length){alert("此課別尚無已販賣的訂單");return}
+let h=`<div class="overlay" onclick="closeModal()"><div class="modal" onclick="event.stopPropagation()">
+<div class="modal-head"><h3>${name} (${code}) — 訂單明細</h3><button class="close-btn" onclick="closeModal()">✕</button></div>
+<div class="table-wrap"><table>
+<tr><th>訂單編號</th><th>車名</th><th>年式</th><th>領照人</th><th>販賣日</th><th>計台</th></tr>`;
+orders.forEach(o=>{
+h+=`<tr><td class="mono">${o.n}</td><td>${o.c}</td><td>${o.y}</td><td>${o.cu}</td><td>${o.s}</td>
+<td style="text-align:center;font-weight:700;${o.u>1?"color:var(--yellow)":""}">${o.u}${o.u>1?" ★":""}</td></tr>`;
+});
+h+=`</table></div>`;
+if(orders.some(o=>o.u>1))h+=`<div class="double-tag" style="margin-top:10px">★ 1計2台（準26 CROWN HV / 正25 SIENNA HV）</div>`;
+h+=`</div></div>`;
+document.body.insertAdjacentHTML("beforeend",h);
+}
+
+function closeModal(){const el=document.querySelector(".overlay");if(el)el.remove()}
+
+render();
+</script>
+</body>
+</html>
